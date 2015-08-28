@@ -19,7 +19,7 @@ public class SendReminderService implements ISendReminderService {
 	@Autowired
 	private SendGrid mailSender;
 	@Autowired
-	private SendGrid.Email email;
+	private SendGrid.Email reminderEmail;
 	
 	@Autowired
 	private IReminderEntryService reminderEntryService;
@@ -29,12 +29,12 @@ public class SendReminderService implements ISendReminderService {
 	public void sendReminder(ReminderEntry reminderEntry) {
 		String[] members = reminderEntry.getReminderRequest().getMembers();
 		for (String member: members) {
-			//new email in case if we want to process multiple entires
+			//new email in case if we want to process multiple entries
 			SendGrid.Email m =new Email();
-			m.setFrom(email.getFrom());
+			m.setFrom(reminderEmail.getFrom());
 			m.addTo(member);
-			m.setSubject(email.getSubject() + reminderEntry.getReminderRequest().getSubject());
-			String body = "hello buddy, \n" + reminderEntry.getReminderRequest().getDescription() + email.getText();
+			m.setSubject(reminderEmail.getSubject() + reminderEntry.getReminderRequest().getSubject());
+			String body = "hello buddy, \n\n" + reminderEntry.getReminderRequest().getDescription() + reminderEmail.getText() + reminderEntry.getReminderRequest().getOwner();
 			m.setText(body);
 			try {
 				mailSender.send(m);
