@@ -13,13 +13,12 @@ public class ReminderRequest {
 	private String owner;
 	private String subject;
 	private String description;
-	private List<String> members;
+	private String[] members;
 	private boolean repeat = false;
 	private boolean daily = false;
 	private boolean weekly = false;
 	private boolean monthlyByDay = false;
 	private boolean monthlyByDate = false;
-	private int day = 0;
 	private Date startDay = new Date();
 	private Date endDay = new Date();
 	private Date createDate = new Date();
@@ -49,10 +48,10 @@ public class ReminderRequest {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<String> getMembers() {
+	public String[] getMembers() {
 		return members;
 	}
-	public void setMembers(List<String> members) {
+	public void setMembers(String[] members) {
 		this.members = members;
 	}
 	public boolean isRepeat() {
@@ -98,13 +97,6 @@ public class ReminderRequest {
 		this.endDay = endDay;
 	}
 	
-	
-	public int getDay() {
-		return day;
-	}
-	public void setDay(int day) {
-		this.day = day;
-	}
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -113,15 +105,17 @@ public class ReminderRequest {
 	}
 	@Override
 	public String toString() {
+		
+		String s = "";
+		for (String o : members) {
+			s = s + o + ",";
+		}
 		return "ReminderRequest [id=" + id + ", owner=" + owner + ", subject="
 				+ subject + ", description=" + description + ", members="
-				+ members + ", repeat=" + repeat + ", daily=" + daily
+				+ s + " repeat=" + repeat + ", daily=" + daily
 				+ ", weekly=" + weekly + ", monthlyByDay=" + monthlyByDay
-				+ ", monthlyByDate=" + monthlyByDate + ", day=" + day
-				+ ", startDay=" + startDay + ", endDay=" + endDay
-				+ ", createDate=" + createDate + "]";
+				+ ", monthlyByDate=" + monthlyByDate + ", startDay=" + startDay
+				+ ", endDay=" + endDay + ", createDate=" + createDate + "]";
 	}
-
-
 	
 }

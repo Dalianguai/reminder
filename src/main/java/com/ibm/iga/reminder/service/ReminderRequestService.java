@@ -30,10 +30,12 @@ public class ReminderRequestService implements IReminderRequestService {
 	private ReminderEntryMapper reminderEntryMapper;
 	@Override
 	public long add(ReminderRequest request) {
-		List<String> members = request.getMembers();
+		String[] members = request.getMembers();
 		long i = reminderRequestMapper.add(request);
 		for (String o : members) {
-			i = i > reminderMemberMapper.add(request.getId(), o) ? 0 : 1;
+			if((null != o) && (!o.trim().equals(""))) {
+				i = i > reminderMemberMapper.add(request.getId(), o) ? 0 : 1;
+			}
 		}
 		for (ReminderEntry re : getReminderEntriesFromRequest(request)) {
 			reminderEntryMapper.add(re);
@@ -54,9 +56,9 @@ public class ReminderRequestService implements IReminderRequestService {
 	@Override
 	public long update(ReminderRequest request) {
 		long i = reminderRequestMapper.update(request);
-		List<String> newMembers = request.getMembers();
+		String[] newMembers = request.getMembers();
 		i = i + reminderMemberMapper.delete(request.getId());
-		if ((newMembers != null) && (!newMembers.isEmpty())) {
+		if (newMembers.length > 0) {
 			for (String o : newMembers) {
 				i = i + reminderMemberMapper.add(request.getId(), o);
 			}

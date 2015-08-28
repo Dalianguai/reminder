@@ -21,6 +21,7 @@ import com.ibm.iga.reminder.dao.ReminderRequestMapper;
 import com.ibm.iga.reminder.model.ReminderEntry;
 import com.ibm.iga.reminder.model.ReminderRequest;
 import com.ibm.iga.reminder.scheduling.SendMailScheduler;
+import com.ibm.iga.reminder.service.inter.IReminderEntryService;
 import com.ibm.iga.reminder.service.inter.IReminderRequestService;
 
 
@@ -42,6 +43,9 @@ public class TestReminderRequestImpl {
 	ReminderRequestMapper reminderRequestMapper;
 	@Autowired
 	ReminderEntryMapper reminderEntryMapper;
+	@Autowired
+	IReminderEntryService reminderEntryService;
+	
 	ReminderRequest reminderRequest;
 	ReminderEntry reminderEntry;
 	@Before
@@ -49,7 +53,6 @@ public class TestReminderRequestImpl {
 		reminderRequest = new ReminderRequest();
 		//reminderRequest.setId(11);
 		reminderRequest.setDaily(true);
-		reminderRequest.setDay(8);
 		reminderRequest.setDescription("abfgftftdddfc");
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.MONTH, 1);
@@ -62,11 +65,11 @@ public class TestReminderRequestImpl {
 		reminderRequest.setSubject("test 111");
 		reminderRequest.setWeekly(false);
 		reminderRequest.setCreateDate(new Date());
-		List<String> m = new ArrayList<String>();
-		m.add("wesfyfyd@cn.ibm.com");
-		m.add("wwwddsdw@cn.dsfibm.com");
-		m.add("dfdhhhsfdd@cn.ibm.com");
-		m.add("dfdsfdd@cnsd.ibm.com");
+		String[] m = new String[4];
+		m[0] = "wesfyfyd@cn.ibm.com";
+		m[1] ="wwwddsdw@cn.dsfibm.com";
+		m[2] ="dfdhhhsfdd@cn.ibm.com";
+		m[3] ="dfdsfdd@cnsd.ibm.com";
 		reminderRequest.setMembers(m);
 		//reminderRequest.setId(14);
 		
@@ -95,14 +98,14 @@ public class TestReminderRequestImpl {
 	@Test
 	public void testSelect() {
 
-		for (String o : reminderMemberMapper.get(13)) {
+		for (String o : reminderMemberMapper.get(5)) {
 			System.out.println(o);
 		}
 	}
 	@Test
 	public void testSelect1(){
 
-		System.out.println(reminderRequestMapper.getById(15));
+		System.out.println(reminderRequestMapper.getById(5));
 	}
 	@Test
 	public void testSelect2() {
@@ -137,7 +140,7 @@ public class TestReminderRequestImpl {
 	}
 	@Test
 	public void testGetReminderEntryId() {
-		System.out.println(reminderEntryMapper.getById(2));
+		System.out.println(reminderEntryMapper.getById(70));
 	}
 	@Test
 	public void testGetReminderEntryRequestId() {
@@ -151,6 +154,12 @@ public class TestReminderRequestImpl {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testGetAllOfToday () {
+		for (ReminderEntry o :reminderEntryService.getTodayReminders()) {
+			System.out.println(o);
 		}
 	}
 }

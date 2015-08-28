@@ -10,5 +10,6 @@
 <body>
 <h2>Welcome to our page</h2>
 
+You can <a href="reminder/request/create">create</a> request reminder. 
 </body>
 </html>

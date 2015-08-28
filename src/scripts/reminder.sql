@@ -8,7 +8,6 @@ create table reminder_request (
 	weekly boolean not null,
 	monthlyByDay boolean not null,
 	monthlyByDate boolean not null,
-	day int not null,
 	startDay date not null,
 	endDay date not null,
 	createDate date not null

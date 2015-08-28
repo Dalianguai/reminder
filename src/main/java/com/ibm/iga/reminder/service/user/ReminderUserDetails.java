@@ -62,4 +62,10 @@ public class ReminderUserDetails implements UserDetails {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "ReminderUserDetails [user=" + user + ", password=" + password
+				+ "]";
+	}
+
 }

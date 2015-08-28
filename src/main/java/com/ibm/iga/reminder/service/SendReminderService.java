@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.ibm.iga.reminder.model.ReminderEntry;
 import com.ibm.iga.reminder.service.inter.IReminderEntryService;
-import com.ibm.iga.reminder.service.inter.ISendMailService;
+import com.ibm.iga.reminder.service.inter.ISendReminderService;
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGrid.Email;
 import com.sendgrid.SendGridException;
 
 @Service
-public class SendMailService implements ISendMailService {
+public class SendReminderService implements ISendReminderService {
 
 	@Autowired
 	private SendGrid mailSender;
@@ -27,7 +27,7 @@ public class SendMailService implements ISendMailService {
 	@Override
 	@Async
 	public void sendReminder(ReminderEntry reminderEntry) {
-		List<String> members = reminderEntry.getReminderRequest().getMembers();
+		String[] members = reminderEntry.getReminderRequest().getMembers();
 		for (String member: members) {
 			//new email in case if we want to process multiple entires
 			SendGrid.Email m =new Email();

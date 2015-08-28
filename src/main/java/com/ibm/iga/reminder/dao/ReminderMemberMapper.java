@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,6 @@ public interface ReminderMemberMapper {
 	@Delete("delete from reminder_member where id = #{id} and name = #{name}")
 	public long deleteName (@Param("id") long id, @Param("name") String name);
 	
-	@Select("select name from reminder_member where request_id =#{id}")
+	@Select("select name from reminder_member where request_id = #{id}")
 	public List<String> get (long id);
 }

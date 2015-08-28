@@ -12,14 +12,14 @@ import com.ibm.iga.reminder.config.MailConfig;
 import com.ibm.iga.reminder.config.RootConfiguration;
 import com.ibm.iga.reminder.service.inter.IReminderEntryService;
 import com.ibm.iga.reminder.service.inter.IReminderRequestService;
-import com.ibm.iga.reminder.service.inter.ISendMailService;
+import com.ibm.iga.reminder.service.inter.ISendReminderService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={RootConfiguration.class})
 public class TestSendMailService {
 
 	@Autowired
-	private ISendMailService sendMailService;
+	private ISendReminderService sendMailService;
 	@Autowired
 	private IReminderEntryService reminderEntryService;
 	

@@ -31,34 +31,34 @@ import com.ibm.iga.reminder.model.ReminderRequest;
 @Repository
 public interface ReminderRequestMapper {
 
-	@Insert("insert into reminder_request (owner, subject, description, rep, daily, weekly, monthlyByDay, monthlyByDate, day, startDay, endDay, createDate) "
-			+ " values (#{owner}, #{subject}, #{description}, #{repeat}, #{daily}, #{weekly}, #{monthlyByDay}, #{monthlyByDate}, #{day}, #{startDay}, #{endDay}, #{createDate})")
+	@Insert("insert into reminder_request (owner, subject, description, rep, daily, weekly, monthlyByDay, monthlyByDate, startDay, endDay, createDate) "
+			+ " values (#{owner}, #{subject}, #{description}, #{repeat}, #{daily}, #{weekly}, #{monthlyByDay}, #{monthlyByDate},  #{startDay}, #{endDay}, #{createDate})")
 	@SelectKey(before = false, keyProperty = "id", resultType = java.lang.Integer.class, statement = { "select last_insert_id() as id" })
 	public long add(ReminderRequest request);
 	
 	@Update("update reminder_request set owner = #{owner}, subject = #{subject}, description = #{description}, rep = #{repeat}, daily = #{daily},"
-			+ "weekly = #{weekly}, monthlyByDay = #{monthlyByDay}, monthlyByDate = #{monthlyByDate}, day = #{day}, startDay = #{startDay},"
+			+ "weekly = #{weekly}, monthlyByDay = #{monthlyByDay}, monthlyByDate = #{monthlyByDate}, startDay = #{startDay},"
 			+ "endDay = #{endDay} where id = #{id}")
 	public long update(ReminderRequest request);
 	
 	@Delete("delete from reminder_request where id = #{id}")
 	public long delete (long id);
 	
-	@Select("select id, owner, subject, description, rep, daily, weekly, monthlyByDay, monthlyByDate, day, startDay, endDay, createDate from reminder_request where id= #{id} ")
+	@Select("select id, owner, subject, description, rep, daily, weekly, monthlyByDay, monthlyByDate, startDay, endDay, createDate from reminder_request where id= #{id} ")
 	@Results(value = {
 			@Result(property="id", column="id"),
 			@Result(property="repeat",column="rep"),
-			@Result(property="members",column="id", javaType=List.class,
+			@Result(property="members",column="id", javaType=String[].class,
 			many = @Many(select = "com.ibm.iga.reminder.dao.ReminderMemberMapper.get")
 			)}
 	)
 	public ReminderRequest getById (long id);
 		
-	@Select("select id, owner, subject, description, rep, daily, weekly, monthlyByDay, monthlyByDate, day, startDay, endDay, createDate from reminder_request where owner = #{owner}")
+	@Select("select id, owner, subject, description, rep, daily, weekly, monthlyByDay, monthlyByDate, startDay, endDay, createDate from reminder_request where owner = #{owner}")
 	@Results(value = {
 			@Result(property="id", column="id"),
 			@Result(property="repeat",column="rep"),
-			@Result(property="members",column="id", javaType=List.class,
+			@Result(property="members",column="id", javaType=String[].class,
 			many = @Many(select = "com.ibm.iga.reminder.dao.ReminderMemberMapper.get")
 			)}
 	)
