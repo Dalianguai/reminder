@@ -51,7 +51,7 @@ public interface ReminderEntryMapper {
 	public List<ReminderEntry> getByRequestId(long id);
 	
 	
-	@Select("select id, request_id, day, bSent, sentDay from reminder_entry where day <= CURDATE() and bSent = 0;")
+	@Select("select id, request_id, day, bSent, sentDay from reminder_entry where day <= CURDATE() and bSent = 0")
 	@Results(
 			@Result(property="reminderRequest", column="request_id", javaType=ReminderRequest.class,
 			one = @One(select = "com.ibm.iga.reminder.dao.ReminderRequestMapper.getById"))
