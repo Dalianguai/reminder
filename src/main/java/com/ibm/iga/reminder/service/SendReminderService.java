@@ -25,11 +25,13 @@ public class SendReminderService implements ISendReminderService {
 	private IReminderEntryService reminderEntryService;
 	
 	@Override
-	@Async
+	//@Async
 	public void sendReminder(ReminderEntry reminderEntry) {
 		String[] members = reminderEntry.getReminderRequest().getMembers();
 		for (String member: members) {
+			
 			//new email in case if we want to process multiple entries
+			
 			SendGrid.Email m =new Email();
 			m.setFrom(reminderEmail.getFrom());
 			m.addTo(member);

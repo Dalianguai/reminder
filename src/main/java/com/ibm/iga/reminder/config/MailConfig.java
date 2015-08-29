@@ -18,7 +18,7 @@ public class MailConfig {
 		SendGrid.Email email = new Email();
 		email.setFrom("noreply@remind.you.com");
 		email.setSubject("[Reminder]");
-		email.setText("\n\n\n PLEASE DO NOT REPLY THE MAIL, ANY QUESTION, PLEASE CONTACT ");
+		email.setText("\n\n\n DO NOT REPLY THE MAIL\nDO NOT REPLY THE MAIL\nDO NOT REPLY THE MAIL\nANY QUESTION, PLEASE CONTACT ");
 		return email;
 	}
 }
