@@ -99,6 +99,13 @@ public class ReminderUserDetails implements UserDetails {
 		this.password = password;
 	}
 
+	public boolean validatePassoword (String password) {
+		if (this.password.equals(password)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 
 	@Override

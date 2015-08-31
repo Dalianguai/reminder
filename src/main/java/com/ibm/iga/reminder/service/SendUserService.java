@@ -1,11 +1,14 @@
 package com.ibm.iga.reminder.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ibm.iga.reminder.model.ReminderUserDetails;
 import com.ibm.iga.reminder.service.inter.ISendUserService;
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
 
+@Service
 public class SendUserService implements ISendUserService {
 
 

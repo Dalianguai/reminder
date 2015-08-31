@@ -13,6 +13,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+
+import com.ibm.iga.reminder.filter.CsrfHeaderFilter;
 
 
 @Configuration
@@ -55,13 +60,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and() 
 					.httpBasic()
 				.and()
-					.csrf();
+					.csrf().csrfTokenRepository(csrfTokenRepository())
+				.and()
+					.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
 				//.and()
 				//	.rememberMe();
 		super.configure(http);
 	}
 	 
 	
+	private CsrfTokenRepository csrfTokenRepository() {
+		  HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		  repository.setHeaderName("X-XSRF-TOKEN");
+		  return repository;
+	}
 	
 	@Bean
 	public PersistentTokenRepository persistentTokenRepository() {
@@ -73,7 +85,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public SavedRequestAwareAuthenticationSuccessHandler 
                 savedRequestAwareAuthenticationSuccessHandler() {
-		
                SavedRequestAwareAuthenticationSuccessHandler auth 
                     = new SavedRequestAwareAuthenticationSuccessHandler();
 		auth.setTargetUrlParameter("targetUrl");
