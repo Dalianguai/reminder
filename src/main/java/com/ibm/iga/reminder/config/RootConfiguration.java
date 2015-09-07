@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableAsync
 //@Import(value = {MyBatisConfig.class, MailConfig.class, SecurityConfig.class})
-@ComponentScan(basePackages = {"com.ibm.iga.reminder.config", "com.ibm.iga.reminder.service", "com.ibm.iga.reminder.dao", "com.ibm.iga.reminder.aspectj", "com.ibm.iga.reminder.scheduling"})
+@ComponentScan(basePackages = {"com.ibm.iga.reminder.config", "com.ibm.iga.reminder.service", "com.ibm.iga.reminder.dao", "com.ibm.iga.reminder.aspectj", "com.ibm.iga.reminder.scheduling", "com.ibm.iga.reminder.filter"})
 public class RootConfiguration {
 
 }

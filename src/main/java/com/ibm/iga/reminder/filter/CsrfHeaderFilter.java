@@ -20,6 +20,7 @@ public class CsrfHeaderFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class
 		        .getName());
+		//System.out.println("in crsf");
 		    if (csrf != null) {
 		      Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
 		      String token = csrf.getToken();

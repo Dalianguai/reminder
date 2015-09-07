@@ -5,6 +5,9 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.ibm.iga.reminder.filter.CorsFilter;
+import com.ibm.iga.reminder.filter.CsrfHeaderFilter;
+
 public class MyWebApplicationInitializer extends
 		AbstractAnnotationConfigDispatcherServletInitializer {
 

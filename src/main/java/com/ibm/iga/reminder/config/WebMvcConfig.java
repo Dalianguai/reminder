@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc //<mvc:annotation-driven />
 @Configuration
 //@EnableAspectJAutoProxy
-@ComponentScan( basePackages = {"com.ibm.iga.reminder.controller"})
+@ComponentScan( basePackages = {"com.ibm.iga.reminder.controller", "com.ibm.iga.reminder.filter"})
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override

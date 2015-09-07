@@ -1,9 +1,12 @@
 package com.ibm.iga.reminder.controller.api;
 
 import java.security.Principal;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,8 +44,15 @@ public class RestRegister {
 		this.principal = principal;
 	}
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public RestAPIStatus register (@RequestParam String username, @RequestParam String password) {
-		ReminderUserDetails user = new ReminderUserDetails(username, password, "USER");
+	public RestAPIStatus register (@RequestBody ReminderUserDetails user) {
+		//System.out.println("user name is " + user.getUser());
+		if (userService.get(user.getUser()) != null) {
+			return forgotPassword(user);
+		}
+		Random random = new Random(System. currentTimeMillis());
+		String password = String.valueOf(random.nextInt());
+		user.setPassword(password);
+		user.setAuthority("USER");
 		userService.register(user);
 		return new RestAPIStatus().success();
 	}
@@ -63,11 +73,12 @@ public class RestRegister {
 	}
 	
 	@RequestMapping(value = "/password/forgot", method = RequestMethod.POST)
-	public RestAPIStatus forgotPassword (@RequestParam String username) {
+	public RestAPIStatus forgotPassword (@RequestBody ReminderUserDetails user) {
+		/*
 		if (!principal.getName().equalsIgnoreCase(username)) {
 			return new RestAPIStatus().failure();
-		}
-		userService.forgotPassword(userService.get(username));
+		}*/
+		userService.forgotPassword(userService.get(user.getUser()));
 		return new RestAPIStatus().success();
 	}
 	
