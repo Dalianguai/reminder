@@ -61,30 +61,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 					.anyRequest().authenticated()
 				.and()
-					
-				
 					.csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers("/api/**") 
-					
-
 				.and()
 					.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-				
 				.formLogin()
 					.loginPage("/login")
 					.permitAll()
 				.and()
 					.logout()
 					.permitAll();
-						//.invalidateHttpSession(true)
-			//	.and() 
-					//.httpBasic();
-				//.and()
-				//	.csrf()//.csrfTokenRepository(csrfTokenRepository())
-				//.and()
-				//	.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
-				//.and()
-				//	.rememberMe();
-			//http.csrf().disable();
 		super.configure(http);
 	}
 	 
