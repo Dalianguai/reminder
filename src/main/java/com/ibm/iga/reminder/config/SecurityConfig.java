@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
 					.anyRequest().authenticated()
 				.and()
-					.csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers("/api/**") 
+					.csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers("/api/**").ignoringAntMatchers("/logout")
 				.and()
 					.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 				.formLogin()
